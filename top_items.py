@@ -1,6 +1,13 @@
 """
+Simple, rating based recommender system
 Simple recommender system based on ratings.
 This can be used when the user has not bought anything yet.
+
+Params for the formula:
+v - number of votes
+m - min number of votes required
+r - average rating
+c - mean of average rating
 """
 
 import pandas as pd
