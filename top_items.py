@@ -12,18 +12,9 @@ c - mean of average rating
 
 import pandas as pd
 
-def get_dataset():
-    X = [{'name': 'X-Man', 'vote_average': 7.7, 'vote_count': 5400},
-         {'name': 'Catwoman', 'vote_average': 8.1, 'vote_count': 10},
-         {'name': 'Wolf', 'vote_average': 6.5, 'vote_count': 200},
-         {'name': 'Titanic', 'vote_average': 6.5, 'vote_count': 3200},
-         {'name': 'Honolulu', 'vote_average': 10, 'vote_count': 4}]
-
-    return pd.DataFrame(X)
-
-def run():
-    data = get_dataset()
+def get_top_items(dataset):
     
+    data = pd.DataFrame(dataset)
     # Recommender system params
     C = data['vote_average'].mean()
     m = data['vote_count'].quantile(0.10) # min nr of votes needed. The higher, the less movies
@@ -40,8 +31,6 @@ def run():
     f_data['score'] = f_data.apply(weighted_rating, axis=1)
     f_data = f_data.sort_values('score', ascending=False)
 
-    return f_data
-    
+    f_data = f_data.drop(columns=['score'])
 
-if __name__ == '__main__':
-    result = run()
+    return f_data.to_json(orient='records')
