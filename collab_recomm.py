@@ -10,7 +10,7 @@ def get_collab_recommendation(dataset, userid):
     trainset = dataset.build_full_trainset()
 
     algo = SVD()
-    algo.train(trainset)
+    algo.fit(trainset)
 
     user_ratings = np.zeros(trainset.n_items)
     
@@ -26,7 +26,7 @@ def get_collab_recommendation(dataset, userid):
 
     result.sort(key=lambda tup: tup[1], reverse=True)
 
-    result = result[:2]
+    result = result[:9]
     result = [i for i,x in result]
     
     return result
